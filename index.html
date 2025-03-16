@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="src/output.css" rel="stylesheet" />
+    <!-- icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- font  -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&family=Rubik:wght@300..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="route">
+
+      <header class="shadow-md sticky">
+  
+          <nav class="container  ">
+            <div class="flex justify-between items-center py-6 text-textColor">
+                <!-- Mobile Menu Button -->
+          <button id="menu-btn" class="md:hidden text-textColor text-2xl">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+              <a href="/" class="text-4xl font-balsamiq font-extrabold"
+                >Burger King</a
+              >
+              <ul id="menu" class=" hidden md:flex gap-8 space-y-6 md:space-y-0 py-4 md:p-0 text-textColor absolute md:relative top-[70px] md:top-0 left-0 md:left-auto w-full md:w-auto bg-[#f8f1e7]  shadow-md md:shadow-none  md:flex-row flex-col md:items-center  text-center">
+                <li class="text-textColor font-balsamiq">
+                  <a
+                    href="/about"
+                    onclick="route()"
+                    class="hover:text-textColorHover duration-200 text-xl"
+                    >About</a
+                  >
+                </li>
+                <li class="text-textColor font-balsamiq">
+                  <a
+                    href="/menu"
+                    onclick="route()"
+                    class="hover:text-textColorHover duration-200 text-xl"
+                    >Menu</a
+                  >
+                </li>
+                <li class="text-textColor font-balsamiq">
+                  <a
+                    href="/contact"
+                    onclick="route()"
+                    class="hover:text-textColorHover duration-200 text-xl"
+                    >Contact</a
+                  >
+                </li>
+              </ul>
+              <div class="flex items-center gap-8">
+                <a
+                  href="/cart"
+                  onclick="route()"
+                  class="flex gap-1 items-center flex-col hover:text-textColorHover duration-200 cursor-pointer"
+                >
+                  <i class="fa-solid fa-cart-shopping text-lg"></i>
+                  <p class="text-sm">Cart</p>
+                </a>
+                <a
+                  href="/wishlist"  
+                  onclick="route()"
+                  class="flex gap-1 items-center flex-col hover:text-textColorHover duration-200 cursor-pointer"
+                >
+                  <i class="fa-solid fa-heart text-lg"></i>
+                  <p class="text-sm">Wishlist</p>
+                </a>
+              </div>
+            </div>
+          </nav>
+      </header>
+      <div id="main">
+  
+      </div>
+      <footer>
+        <div class="container flex flex-col md:flex-row justify-between items-center">
+          <div class="flex gap-4">
+            <a href="https://github.com/mitchwadair" class="cursor-pointer" target="_blank">
+              <i class="fa-brands fa-github text-2xl"></i>
+            </a>
+            <a href="https://twitter.com/imMtB_" class="cursor-pointer" target="_blank">
+              <i class="fa-brands fa-twitter text-2xl"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UC6pFfiYWbtNkU-u2ZXUfzZw" class="cursor-pointer" target="_blank">
+              <i class="fa-brands fa-youtube text-2xl"></i>
+            </a>
+          </div>
+          <div class="text-textColor font-balsamiq">
+            Copyright &copy; 2023
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
