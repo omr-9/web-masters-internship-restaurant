@@ -1,3 +1,26 @@
-<div>
-    contanct
+<div class="container min-h-screen">
+    <div class="max-w-4xl mx-auto py-10 px-5">
+        <h1 class="text-4xl font-bold text-center text-textColor">Contact Us</h1>
+        <p class="text-center text-gray-700 mt-2">Have a question? Reach out to us!</p>
+        
+        <div class=" shadow-md rounded-lg p-6 mt-6">
+            <form id="contact-form" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 font-semibold">Name</label>
+                    <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg" placeholder="Your Name" required>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold">Email</label>
+                    <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg" placeholder="Your Email" required>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold">Message</label>
+                    <textarea id="message" class="w-full px-4 py-2 border rounded-lg" rows="4" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="w-full bg-textColor text-white py-2 rounded-lg hover:bg-textColorHover duration-200">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    
 </div>

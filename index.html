@@ -80,25 +80,143 @@
       <div id="main">
   
       </div>
-      <footer>
-        <div class="container flex flex-col md:flex-row justify-between items-center">
-          <div class="flex gap-4">
-            <a href="https://github.com/mitchwadair" class="cursor-pointer" target="_blank">
-              <i class="fa-brands fa-github text-2xl"></i>
-            </a>
-            <a href="https://twitter.com/imMtB_" class="cursor-pointer" target="_blank">
-              <i class="fa-brands fa-twitter text-2xl"></i>
-            </a>
-            <a href="https://www.youtube.com/channel/UC6pFfiYWbtNkU-u2ZXUfzZw" class="cursor-pointer" target="_blank">
-              <i class="fa-brands fa-youtube text-2xl"></i>
-            </a>
-          </div>
-          <div class="text-textColor font-balsamiq">
-            Copyright &copy; 2023
-          </div>
-        </div>
+      <footer class=" bg-textColor  ">
+<div class="container  mt-20">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 pt-10">
+    <div class="flex flex-col gap-4">
+      <h1 class="text-white text-2xl font-balsamiq font-extrabold">
+        Burger King
+      </h1>
+      <p class="text-white text-sm">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+        quos tempora quia, quidem quae quibusdam?
+      </p>
+    </div>
+    <div class="flex flex-col gap-4">
+      <h1 class="text-white text-2xl font-balsamiq font-extrabold">
+        Quick Links
+      </h1>
+      <ul class="flex flex-col gap-2">
+        <li>
+          <a
+            href="/about"
+            onclick="route()"
+            class="text-white duration-200"
+            >About</a
+          >
+        </li>
+        <li>  
+          <a
+            href="/menu"
+            onclick="route()"
+            class="text-white duration-200"
+            >Menu</a>
+
+        </li>
+        <li>
+          <a
+            href="/contact"
+            onclick="route()"
+            class="text-white  duration-200"
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="flex flex-col gap-4">
+      <h1 class="text-white text-2xl font-balsamiq font-extrabold">
+        Quick Links
+      </h1>
+      <ul class="flex flex-col gap-2">
+        <li>
+          <a
+            href="/about"
+            onclick="route()"
+            class="text-white duration-200"
+            >About</a
+          >
+        </li>
+        <li>  
+          <a
+            href="/menu"
+            onclick="route()"
+            class="text-white duration-200"
+            >Menu</a>
+
+        </li>
+        <li>
+          <a
+            href="/contact"
+            onclick="route()"
+            class="text-white  duration-200"
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="flex flex-col gap-4">
+      <h1 class="text-white text-2xl font-balsamiq font-extrabold">
+        Contact
+      </h1>
+      <ul class="flex flex-col gap-2">
+        <li>
+          <a
+            href="/"
+            class="text-white  duration-200"
+            >Address</a
+          >
+        </li>
+        <li>
+          <a
+            href="/"
+            class="text-white  duration-200"
+            >Phone</a
+          >
+        </li>
+        <li>
+          <a
+            href="/"
+            class="text-white hover:text-whiteHover duration-200"
+            >Email</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr class="my-4" />
+  <div class="flex flex-col md:flex-row justify-between items-center">
+    <p class="text-white text-sm">
+      &copy; 2023 Burger King. All rights reserved.
+    </p>
+    <div class="flex gap-2">
+      <a
+        href="/"
+        class="text-white hover:text-whiteHover duration-200"
+        ><i class="fa-brands fa-facebook"></i
+      ></a>
+      <a
+        href="/"
+        class="text-white  duration-200"
+        ><i class="fa-brands fa-instagram"></i
+      ></a>
+      <a
+        href="/"
+        class="text-white hover:text-textColorHover duration-200"
+        ><i class="fa-brands fa-twitter"></i
+      ></a>  
+    </div>
+  </div>
+
+
+</div>
+       
       </footer>
     </div>
   </body>
-  <script src="script.js"></script>
+  <script src="js/routes.js" type="module">
+    
+  </script>
+  <script src="js/data.js" type="module">
+    
+  </script>
 </html>
