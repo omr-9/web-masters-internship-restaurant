@@ -47,7 +47,7 @@ const handleLocation = async () => {
               <h1 class="text-2xl font-[800] mb-2 font-balsamiq">${card.title}</h1>
               <p class="text-gray-600 my-2">${card.desc || "Delicious meal!"}</p>  
               <div class="flex justify-between items-center">
-                <button class="bg-textColor hover:bg-textColorHover duration-200 rounded-full text-white py-2 px-8 mt-4">Order Now</button>
+                <a href="/menu" class="bg-textColor hover:bg-textColorHover duration-200 rounded-full text-white py-2 px-8 mt-4">Order Now</a>
               </div>
             </div>
           </div>`;
@@ -92,7 +92,8 @@ const handleLocation = async () => {
   
       categories.forEach((category, index) => {
           const button = document.createElement("button");
-          button.className = "text-black px-8 py-2 rounded-full transition duration-300";
+          button.className = "text-black rounded-full transition text-sm md:text-base lg:text-lg duration-300";
+          button.style.padding = "4px 12px";
           button.textContent = category.toUpperCase();
   
           // Set the first button as active by default
@@ -170,13 +171,16 @@ menuCards.addEventListener("click", (e) => {
     let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
     let total = 0;
   
-    if (cart.length === 0) {
-      cartContainer.innerHTML = "<p>Your cart is empty!</p>";
-      cartTotalElement.textContent = "0 EGP";
-      cartCountElement.textContent = "0";
-      return;
-    }
-  
+    cartContainer.style = 
+      "display: flex;justify-content: center;align-items: center;min-height: 50vh; width: 100%;text-align: center;"
+    
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `<div class="flex justify-center items-center h-40 w-full text-lg font-semibold">Your cart is empty</div>`;
+        cartTotalElement.textContent = "0 EGP";
+        cartCountElement.textContent = "0";
+        return;
+      }
+     
     cartCountElement.textContent = cart.length;
     cart.forEach((item, index) => {
       const priceNumber = parseFloat(item.price); 
