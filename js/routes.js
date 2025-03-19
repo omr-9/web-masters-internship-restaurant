@@ -65,7 +65,7 @@ const handleLocation = async () => {
             itemDiv.className = "bg-white p-4 rounded-lg shadow-lg";
             itemDiv.innerHTML = `
           <div class="flex flex-col items-center justify-between">
-    <img src="${item.img}" alt="${item.title}" class="w-full h-40 object-cover rounded-md">
+    <img src="${item.img}" alt="${item.title}" class="w-full h-40 object-contain rounded-md">
     
     <div class="mt-4 w-full flex flex-col items-center">
     
@@ -73,15 +73,15 @@ const handleLocation = async () => {
         <p class="text-gray-800 font-medium">${item.price} <sub>EGP</sub></p>
 
         <div class="flex items-center justify-center gap-8 w-full mt-4 ">
-            <i class="fa-regular fa-heart text-2xl  cursor-pointer text-gray-700 hover:text-red-500 transition duration-200"></i>
-            <button class="add-to-cart bg-textColor hover:bg-textColorHover transition duration-200 rounded-full text-white py-2 px-8">
-                Add to Cart
-            </button>
+        <button class="add-to-cart bg-textColor hover:bg-textColorHover transition duration-200 rounded-full text-white py-2 px-8">
+        Add to Cart
+        </button>
         </div>
-    </div>
-</div>
-
-            `;
+        </div>
+        </div>
+        
+        `;
+        // <i class="fa-regular fa-heart text-2xl  cursor-pointer text-gray-700 hover:text-red-500 transition duration-200"></i>
             menuCards.appendChild(itemDiv);
         });
     }
@@ -92,7 +92,7 @@ const handleLocation = async () => {
   
       categories.forEach((category, index) => {
           const button = document.createElement("button");
-          button.className = "text-black rounded-full transition text-sm md:text-base lg:text-lg duration-300";
+          button.className = " rounded-full transition text-sm  md:text-base lg:text-lg duration-300";
           button.style.padding = "4px 12px";
           button.textContent = category.toUpperCase();
   
@@ -103,13 +103,11 @@ const handleLocation = async () => {
           }
   
           button.addEventListener("click", () => {
-              // Remove active class from all buttons
               document.querySelectorAll("#filterButtons button").forEach(btn => {
                   btn.classList.remove("bg-textColor", "text-white");
                   btn.classList.add("text-textcolor");
               });
   
-              // Add active class to the clicked button
               button.classList.add("bg-textColor", "text-white");
   
               // Display the selected category
@@ -119,14 +117,12 @@ const handleLocation = async () => {
           filterButtons.appendChild(button);
       });
   
-      // Show the first category by default
       if (firstButton) {
           displayMenu(categories[0]);
       }
   }
   
 
-  // Initialize buttons and display the default category
   createFilterButtons();
   
     }
@@ -149,83 +145,116 @@ menuCards.addEventListener("click", (e) => {
   }
 });
 
-  function addToCart(item) {
-    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+function addToCart(item) {
+  const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+  const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
 
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cartItems.push({ ...item, quantity: 1 });
-    }
-
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    alert(`${item.title} added to cart!`);
+  if (existingItem) {
+      alert(`${item.title} already added to cart!`);
+      return;
+  } else {
+      item.quantity = 1; // Ensure new item has a default quantity
+      cartItems.push(item);
   }
-  function displayCart() {
-    const cartContainer = document.getElementById("cart-items");
-    const cartTotalElement = document.getElementById("cart-total");
-    const cartCountElement = document.getElementById("cart-count");
-    cartContainer.innerHTML = "";
-  
-    let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
-    let total = 0;
-  
-    cartContainer.style = 
-      "display: flex;justify-content: center;align-items: center;min-height: 50vh; width: 100%;text-align: center;"
-    
-      if (cart.length === 0) {
-        cartContainer.innerHTML = `<div class="flex justify-center items-center h-40 w-full text-lg font-semibold">Your cart is empty</div>`;
-        cartTotalElement.textContent = "0 EGP";
-        cartCountElement.textContent = "0";
-        return;
-      }
-     
-    cartCountElement.textContent = cart.length;
-    cart.forEach((item, index) => {
-      const priceNumber = parseFloat(item.price); 
 
-      const itemTotal = priceNumber * item.quantity;
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  alert(`${item.title} added to cart!`);
+}
+
+function displayCart() {
+  const cartContainer = document.getElementById("cart-items");
+  const cartTotalElement = document.getElementById("cart-total");
+  const cartCountElement = document.getElementById("cart-count");
+
+  cartContainer.innerHTML = "";
+
+  let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+  let total = 0;
+
+  if (cart.length === 0) {
+      cartContainer.innerHTML = `<div class="flex justify-center items-center h-40 w-full text-lg font-semibold">Your cart is empty</div>`;
+      cartTotalElement.textContent = "0 EGP";
+      cartCountElement.textContent = "0";
+      return;
+  }
+
+  cartCountElement.textContent = cart.length;
+
+  cart.forEach((item, index) => {
+      const priceNumber = parseFloat(item.price) || 0;
+      const quantity = item.quantity ? parseInt(item.quantity) : 1;
+      const itemTotal = priceNumber * quantity;
       total += itemTotal;
-  
+
       const itemDiv = document.createElement("div");
       itemDiv.className = "bg-white p-4 rounded-lg shadow-lg mt-4";
       itemDiv.innerHTML = `
-        <div class="flex flex-col items-center justify-between">
-          <img src="${item.img}" alt="${item.title}" class="w-full h-40 object-cover rounded-md">
-          
-          <div class="mt-2 w-full flex flex-col items-center">
-            <h3 class="text-lg font-semibold mt-2">${item.title}</h3>
-            <p class="text-gray-800 font-medium">${priceNumber} x ${item.quantity} = ${itemTotal.toFixed(2)} <sub>EGP</sub></p>
-  
-            <div class="flex items-center justify-center gap-8 w-full mt-4">
-              <i class="fa-regular fa-heart text-2xl cursor-pointer text-gray-700 hover:text-red-500 transition duration-200"></i>
-              <button class="remove-item bg-red-600 hover:bg-red-700 text-white py-2 px-8 rounded-full transition duration-200" data-index="${index}">Remove</button>
-            </div>
+          <div class="flex flex-col items-center justify-between">
+              <img src="${item.img}" alt="${item.title}" class="w-full h-40 object-contain rounded-md">
+              <div class="mt-2 w-full flex flex-col items-center space-y-5">
+                  <h3 class="text-lg font-semibold mt-2">${item.title}</h3>
+                  <p class="text-gray-800 font-medium text-center">
+                      ${priceNumber} EGP x 
+                      <span id="qty-${index}" class="mx-2">${quantity}</span>
+                      = <span id="total-${index}">${itemTotal.toFixed(2)}</span> <sub>EGP</sub>
+                  </p>  
+                  <div class="flex items-center space-x-5">
+                      <button class="decrease-qty bg-red-700 text-white px-4 py-1 rounded-full text-xl" data-index="${index}">-</button>
+                      <button class="increase-qty bg-green-700 text-white px-4 py-1 rounded-full text-xl" data-index="${index}">+</button>
+                  </div>
+                  <div class="flex items-center justify-center gap-8 w-full mt-4">
+                      <button class="remove-item bg-red-600 hover:bg-red-700 text-white py-2 px-8 rounded-full transition duration-200 border-textColor border" data-index="${index}">Remove</button>
+                  </div>
+              </div>
           </div>
-        </div>
       `;
-  
       cartContainer.appendChild(itemDiv);
-    });
-  
-    // Update total price
-    cartTotalElement.textContent = `${total.toFixed(2)} EGP`;
-  
-    // Remove item from cart
-    document.querySelectorAll(".remove-item").forEach((button) => {
+  });
+
+  // Update total price
+  cartTotalElement.textContent = `${total.toFixed(2)} EGP`;
+
+  // Attach event listeners for quantity buttons
+  document.querySelectorAll(".increase-qty").forEach(button => {
       button.addEventListener("click", (e) => {
-        const index = e.target.getAttribute("data-index");
-        removeFromCart(index);
+          const index = e.target.getAttribute("data-index");
+          updateQuantity(index, 1);
       });
-    });
+  });
+
+  document.querySelectorAll(".decrease-qty").forEach(button => {
+      button.addEventListener("click", (e) => {
+          const index = e.target.getAttribute("data-index");
+          updateQuantity(index, -1);
+      });
+  });
+
+  // Remove item from cart
+  document.querySelectorAll(".remove-item").forEach((button) => {
+      button.addEventListener("click", (e) => {
+          const index = e.target.getAttribute("data-index");
+          removeFromCart(index);
+      });
+  });
+}
+
+function updateQuantity(index, change) {
+  let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+  if (cart[index]) {
+      cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + change);
   }
-  function removeFromCart(index) {
-    let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
-    cart.splice(index, 1);
-    localStorage.setItem("cartItems", JSON.stringify(cart));
-    displayCart(); // Refresh cart page
-  }
+
+  localStorage.setItem("cartItems", JSON.stringify(cart));
+  displayCart();
+}
+
+function removeFromCart(index) {
+  let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+  cart.splice(index, 1);
+  localStorage.setItem("cartItems", JSON.stringify(cart));
+  displayCart(); // Refresh cart page
+}
 };
 
 // Expose route function globally
