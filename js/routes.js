@@ -10,13 +10,8 @@ const route = (e) => {
   e = e || window.event;
   e.preventDefault();
   const target = e.currentTarget;
-  const path = target.pathname;
-
-  // Avoid pushing the same state
-  if (window.location.pathname !== path) {
-    window.history.pushState({}, "", target.href);
-    handleLocation();
-  }
+  window.history.pushState({}, "", target.href);
+  handleLocation();
 };
 
 const routes = {
@@ -52,7 +47,7 @@ const handleLocation = async () => {
               <h1 class="text-2xl font-[800] mb-2 font-balsamiq">${card.title}</h1>
               <p class="text-gray-600 my-2">${card.desc || "Delicious meal!"}</p>  
               <div class="flex justify-between items-center">
-                <a href="/menu" class="bg-textColor hover:bg-textColorHover duration-200 rounded-full text-white py-2 px-8 mt-4">Order Now</a>
+                <button onClick="route({preventDefault: () => {window.location.href = '/menu'}})"  class="bg-textColor hover:bg-textColorHover duration-200 rounded-full text-white py-2 px-8 mt-4">Order Now</button>
               </div>
             </div>
           </div>`;
