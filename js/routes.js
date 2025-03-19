@@ -10,8 +10,13 @@ const route = (e) => {
   e = e || window.event;
   e.preventDefault();
   const target = e.currentTarget;
-  window.history.pushState({}, "", target.href);
-  handleLocation();
+  const path = target.pathname;
+
+  // Avoid pushing the same state
+  if (window.location.pathname !== path) {
+    window.history.pushState({}, "", target.href);
+    handleLocation();
+  }
 };
 
 const routes = {
@@ -145,115 +150,115 @@ menuCards.addEventListener("click", (e) => {
   }
 });
 
-function addToCart(item) {
-  const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
-  const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
+ function addToCart(item) {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+    const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
 
-  if (existingItem) {
-      alert(`${item.title} already added to cart!`);
-      return;
-  } else {
-      item.quantity = 1; // Ensure new item has a default quantity
-      cartItems.push(item);
-  }
+    if (existingItem) {
+        alert(`${item.title} already added to cart!`);
+        return;
+    } else {
+        item.quantity = 1; // Ensure new item has a default quantity
+        cartItems.push(item);
+    }
 
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  alert(`${item.title} added to cart!`);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    alert(`${item.title} added to cart!`);
 }
 
 function displayCart() {
-  const cartContainer = document.getElementById("cart-items");
-  const cartTotalElement = document.getElementById("cart-total");
-  const cartCountElement = document.getElementById("cart-count");
+    const cartContainer = document.getElementById("cart-items");
+    const cartTotalElement = document.getElementById("cart-total");
+    const cartCountElement = document.getElementById("cart-count");
 
-  cartContainer.innerHTML = "";
+    cartContainer.innerHTML = "";
 
-  let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
-  let total = 0;
+    let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+    let total = 0;
 
-  if (cart.length === 0) {
-      cartContainer.innerHTML = `<div class="flex justify-center items-center h-40 w-full text-lg font-semibold">Your cart is empty</div>`;
-      cartTotalElement.textContent = "0 EGP";
-      cartCountElement.textContent = "0";
-      return;
-  }
+    if (cart.length === 0) {
+        cartContainer.innerHTML = `<div class="flex justify-center items-center h-40 w-full text-lg font-semibold">Your cart is empty</div>`;
+        cartTotalElement.textContent = "0 EGP";
+        cartCountElement.textContent = "0";
+        return;
+    }
 
-  cartCountElement.textContent = cart.length;
+    cartCountElement.textContent = cart.length;
 
-  cart.forEach((item, index) => {
-      const priceNumber = parseFloat(item.price) || 0;
-      const quantity = item.quantity ? parseInt(item.quantity) : 1;
-      const itemTotal = priceNumber * quantity;
-      total += itemTotal;
+    cart.forEach((item, index) => {
+        const priceNumber = parseFloat(item.price) || 0;
+        const quantity = item.quantity ? parseInt(item.quantity) : 1;
+        const itemTotal = priceNumber * quantity;
+        total += itemTotal;
 
-      const itemDiv = document.createElement("div");
-      itemDiv.className = "bg-white p-4 rounded-lg shadow-lg mt-4";
-      itemDiv.innerHTML = `
-          <div class="flex flex-col items-center justify-between">
-              <img src="${item.img}" alt="${item.title}" class="w-full h-40 object-contain rounded-md">
-              <div class="mt-2 w-full flex flex-col items-center space-y-5">
-                  <h3 class="text-lg font-semibold mt-2">${item.title}</h3>
-                  <p class="text-gray-800 font-medium text-center">
-                      ${priceNumber} EGP x 
-                      <span id="qty-${index}" class="mx-2">${quantity}</span>
-                      = <span id="total-${index}">${itemTotal.toFixed(2)}</span> <sub>EGP</sub>
-                  </p>  
-                  <div class="flex items-center space-x-5">
-                      <button class="decrease-qty bg-red-700 text-white px-4 py-1 rounded-full text-xl" data-index="${index}">-</button>
-                      <button class="increase-qty bg-green-700 text-white px-4 py-1 rounded-full text-xl" data-index="${index}">+</button>
-                  </div>
-                  <div class="flex items-center justify-center gap-8 w-full mt-4">
-                      <button class="remove-item bg-red-600 hover:bg-red-700 text-white py-2 px-8 rounded-full transition duration-200 border-textColor border" data-index="${index}">Remove</button>
-                  </div>
-              </div>
-          </div>
-      `;
-      cartContainer.appendChild(itemDiv);
-  });
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "bg-white p-4 rounded-lg shadow-lg mt-4";
+        itemDiv.innerHTML = `
+            <div class="flex flex-col items-center justify-between">
+                <img src="${item.img}" alt="${item.title}" class="w-full h-40 object-contain rounded-md">
+                <div class="mt-2 w-full flex flex-col items-center space-y-5">
+                    <h3 class="text-lg font-semibold mt-2">${item.title}</h3>
+                    <p class="text-gray-800 font-medium text-center">
+                        ${priceNumber} EGP x 
+                        <span id="qty-${index}" class="mx-2">${quantity}</span>
+                        = <span id="total-${index}">${itemTotal.toFixed(2)}</span> <sub>EGP</sub>
+                    </p>  
+                    <div class="flex items-center space-x-5">
+                        <button class="decrease-qty bg-red-700 text-white px-4 py-1 rounded-full text-xl" data-index="${index}">-</button>
+                        <button class="increase-qty bg-green-700 text-white px-4 py-1 rounded-full text-xl" data-index="${index}">+</button>
+                    </div>
+                    <div class="flex items-center justify-center gap-8 w-full mt-4">
+                        <button class="remove-item bg-red-600 hover:bg-red-700 text-white py-2 px-8 rounded-full transition duration-200 border-textColor border" data-index="${index}">Remove</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        cartContainer.appendChild(itemDiv);
+    });
 
-  // Update total price
-  cartTotalElement.textContent = `${total.toFixed(2)} EGP`;
+    // Update total price
+    cartTotalElement.textContent = `${total.toFixed(2)} EGP`;
 
-  // Attach event listeners for quantity buttons
-  document.querySelectorAll(".increase-qty").forEach(button => {
-      button.addEventListener("click", (e) => {
-          const index = e.target.getAttribute("data-index");
-          updateQuantity(index, 1);
-      });
-  });
+    // Attach event listeners for quantity buttons
+    document.querySelectorAll(".increase-qty").forEach(button => {
+        button.addEventListener("click", (e) => {
+            const index = e.target.getAttribute("data-index");
+            updateQuantity(index, 1);
+        });
+    });
 
-  document.querySelectorAll(".decrease-qty").forEach(button => {
-      button.addEventListener("click", (e) => {
-          const index = e.target.getAttribute("data-index");
-          updateQuantity(index, -1);
-      });
-  });
+    document.querySelectorAll(".decrease-qty").forEach(button => {
+        button.addEventListener("click", (e) => {
+            const index = e.target.getAttribute("data-index");
+            updateQuantity(index, -1);
+        });
+    });
 
-  // Remove item from cart
-  document.querySelectorAll(".remove-item").forEach((button) => {
-      button.addEventListener("click", (e) => {
-          const index = e.target.getAttribute("data-index");
-          removeFromCart(index);
-      });
-  });
+    // Remove item from cart
+    document.querySelectorAll(".remove-item").forEach((button) => {
+        button.addEventListener("click", (e) => {
+            const index = e.target.getAttribute("data-index");
+            removeFromCart(index);
+        });
+    });
 }
 
 function updateQuantity(index, change) {
-  let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+    let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-  if (cart[index]) {
-      cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + change);
-  }
+    if (cart[index]) {
+        cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + change);
+    }
 
-  localStorage.setItem("cartItems", JSON.stringify(cart));
-  displayCart();
+    localStorage.setItem("cartItems", JSON.stringify(cart));
+    displayCart();
 }
 
 function removeFromCart(index) {
-  let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
-  cart.splice(index, 1);
-  localStorage.setItem("cartItems", JSON.stringify(cart));
-  displayCart(); // Refresh cart page
+    let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cartItems", JSON.stringify(cart));
+    displayCart(); // Refresh cart page
 }
 };
 
