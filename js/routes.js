@@ -47,7 +47,7 @@ const handleLocation = async () => {
               <h1 class="text-2xl font-[800] mb-2 font-balsamiq">${card.title}</h1>
               <p class="text-gray-600 my-2">${card.desc || "Delicious meal!"}</p>  
               <div class="flex justify-between items-center">
-                <button onClick="route({preventDefault: () => {window.location.href = '/menu'}})"  class="bg-textColor hover:bg-textColorHover duration-200 rounded-full text-white py-2 px-8 mt-4">Order Now</button>
+                <button   class="bg-textColor hover:bg-textColorHover duration-200 rounded-full text-white py-2 px-8 mt-4">Order Now</button>
               </div>
             </div>
           </div>`;
